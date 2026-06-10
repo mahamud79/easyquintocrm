@@ -88,21 +88,10 @@ export const praticaMontanteLordo = (pratica: Pick<Pratica, "rata" | "durata">) 
   return Number.isFinite(rata) && Number.isFinite(durata) ? rata * durata : 0;
 };
 
-const DEMO_PRATICA_IDS = new Set<string>([
-  "p-001",
-  "p-002",
-  "p-003",
-  "p-004",
-  "p-005",
-  "p-006",
-  "p-007",
-  "p-008",
-  "p-009"
-]);
-
 const PERSIST_KEY = "pratiche";
-const cleanPratiche = (items: Pratica[]) => items.filter((pratica) => !DEMO_PRATICA_IDS.has(pratica.id));
-let state: { pratiche: Pratica[] } = { pratiche: cleanPratiche(loadPersisted<Pratica[]>(PERSIST_KEY, [])) };
+let state: { pratiche: Pratica[] } = { pratiche: loadPersisted<Pratica[]>(PERSIST_KEY, []) };
+
+
 savePersisted(PERSIST_KEY, state.pratiche);
 const listeners = new Set<() => void>();
 const subscribe = (l: () => void) => {
